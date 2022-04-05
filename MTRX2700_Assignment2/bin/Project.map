@@ -1,5 +1,5 @@
 *** EVALUATION ***
-PROGRAM "C:\Users\Angus\Desktop\University\Semester 1 2022\MTRX2700\MTRX2700_Assignment2\bin\Project.abs"
+PROGRAM "C:\Users\ahor8644\Desktop\Mech_2\MTRX2700_Assignment2\bin\Project.abs"
 
 *********************************************************************************************
 TARGET SECTION
@@ -31,7 +31,7 @@ _startupData is allocated at 0xC00B and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
   _Range   pZeroOut       0x1400     2538
-  _Copy    *toCopyDownBeg 0xC06C
+  _Copy    *toCopyDownBeg 0xC064
 } _startupData;
 
 *********************************************************************************************
@@ -40,10 +40,10 @@ Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
 .init                             11     R     0xC000     0xC00A   ROM_C000
 .startData                        10     R     0xC00B     0xC014   ROM_C000
-.rodata1                          20     R     0xC015     0xC028   ROM_C000
-NON_BANKED                        67     R     0xC029     0xC06B   ROM_C000
-.copy                             18     R     0xC06C     0xC07D   ROM_C000
-.text                            968     R   0x308000   0x3083C7   PAGE_30
+.rodata1                          12     R     0xC015     0xC020   ROM_C000
+NON_BANKED                        67     R     0xC021     0xC063   ROM_C000
+.copy                             18     R     0xC064     0xC075   ROM_C000
+.text                            960     R   0x308000   0x3083BF   PAGE_30
 .stack                          1024   R/W     0x1000     0x13FF   RAM
 .data                             13   R/W     0x1400     0x140C   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
@@ -394,7 +394,7 @@ HEAP_SEGMENT                    2000   R/W     0x161A     0x1DE9   RAM
 .vectSeg342_vect                   2     R     0xFFFE     0xFFFF   .vectSeg342
 
 Summary of section sizes per section type:
-READ_ONLY (R):         4C6 (dec:     1222)
+READ_ONLY (R):         4B6 (dec:     1206)
 READ_WRITE (R/W):      DEA (dec:     3562)
 NO_INIT (N/I):         190 (dec:      400)
 
@@ -756,7 +756,7 @@ MODULE:                 -- main.c.o --
 - PROCEDURES:
      main                                    308000      41      65       2   .text       
 - VARIABLES:
-     STRING.Fuck.me.dead.1                     C015       E      14       1   .rodata1    
+     STRING.Hello.1                            C015       6       6       1   .rodata1    
      sci_port                                  1400       C      12       6   .data       
      read_end_char                             140C       1       1       1   .data       
      write_end_char                            140D       1       1       1   .bss        
@@ -789,11 +789,11 @@ MODULE:                 -- ALLOC.C.o (ansibi.lib) --
      free_ptr                                  1412       2       2       8   .bss        
 MODULE:                 -- rtshc12.c.o (ansibi.lib) --
 - PROCEDURES:
-     _CASE_CHECKED_BYTE                        C029      14      20       1   NON_BANKED  
+     _CASE_CHECKED_BYTE                        C021      14      20       1   NON_BANKED  
 - VARIABLES:
 MODULE:                 -- isr_vectors.c.o --
 - PROCEDURES:
-     UnimplementedISR                          C03D       2       2      61   NON_BANKED  
+     UnimplementedISR                          C035       2       2      61   NON_BANKED  
 - VARIABLES:
      _vect                                     FF80      7E     126       0   .abs_section_ff80
 MODULE:                 -- serial.c.o --
@@ -804,7 +804,7 @@ MODULE:                 -- serial.c.o --
      get_new_command                         3082DD      17      23       2   .text       
      print_to_serial                         3082F4      15      21       2   .text       
      SCI_write_char                          308309      32      50       2   .text       
-     serial_ISR                                C03F      2D      45       2   NON_BANKED  
+     serial_ISR                                C037      2D      45       2   NON_BANKED  
 - VARIABLES:
      string_ready                              1414       2       2       3   .bss        
      index.1                                   1416       2       2       4   .bss        
@@ -813,17 +813,17 @@ MODULE:                 -- serial.c.o --
      write_buffer                              151A     100     256       2   .common     
 MODULE:                 -- command_parsing.c.o --
 - PROCEDURES:
-     split_up_command                        30833B      8D     141       2   .text       
+     split_up_command                        30833B      85     133       2   .text       
 - VARIABLES:
-     STRING....1                               C023       3       3       1   .rodata1    
-     STRING....2                               C026       3       3       1   .rodata1    
+     STRING....1                               C01B       3       3       1   .rodata1    
+     STRING....2                               C01E       3       3       1   .rodata1    
 
 *********************************************************************************************
 MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   mc9s12dg256.c.o                            400      0      0
-  main.c.o                                    14     65     14
+  main.c.o                                    14     65      6
   Start12.c.o                                  0     52      0
   HEAP.C.o (ansibi.lib)                     2000     12      0
   STRING.C.o (ansibi.lib)                      2    127      0
@@ -831,7 +831,7 @@ MODULE STATISTIC
   rtshc12.c.o (ansibi.lib)                     0     20      0
   isr_vectors.c.o                              0      2    126
   serial.c.o                                 518    262      0
-  command_parsing.c.o                          0    141      6
+  command_parsing.c.o                          0    133      6
   other                                     1024     12     18
 
 *********************************************************************************************
@@ -848,7 +848,7 @@ SECTION: ".bss"
 SECTION: ".init"
   _Startup 
 SECTION: ".rodata1"
-  STRING.Fuck.me.dead.1 STRING....1 STRING....2 
+  STRING.Hello.1 STRING....1 STRING....2 
 SECTION: "NON_BANKED"
   _CASE_CHECKED_BYTE UnimplementedISR serial_ISR 
 SECTION: ".abs_section_8"
@@ -1898,12 +1898,12 @@ OBJECT LIST SORTED BY ADDRESS
      write_buffer                              151A     100     256       2   .common     
      _heap_                                    161A     7D0    2000       2   HEAP_SEGMENT
      _Startup                                  C000       B      11       0   .init       
-     STRING.Fuck.me.dead.1                     C015       E      14       1   .rodata1    
-     STRING....1                               C023       3       3       1   .rodata1    
-     STRING....2                               C026       3       3       1   .rodata1    
-     _CASE_CHECKED_BYTE                        C029      14      20       1   NON_BANKED  
-     UnimplementedISR                          C03D       2       2      61   NON_BANKED  
-     serial_ISR                                C03F      2D      45       2   NON_BANKED  
+     STRING.Hello.1                            C015       6       6       1   .rodata1    
+     STRING....1                               C01B       3       3       1   .rodata1    
+     STRING....2                               C01E       3       3       1   .rodata1    
+     _CASE_CHECKED_BYTE                        C021      14      20       1   NON_BANKED  
+     UnimplementedISR                          C035       2       2      61   NON_BANKED  
+     serial_ISR                                C037      2D      45       2   NON_BANKED  
      _vect                                     FF80      7E     126       0   .abs_section_ff80
      main                                    308000      41      65       2   .text       
      Init                                    308041      29      41       2   .text       
@@ -1919,7 +1919,7 @@ OBJECT LIST SORTED BY ADDRESS
      get_new_command                         3082DD      17      23       2   .text       
      print_to_serial                         3082F4      15      21       2   .text       
      SCI_write_char                          308309      32      50       2   .text       
-     split_up_command                        30833B      8D     141       2   .text       
+     split_up_command                        30833B      85     133       2   .text       
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
@@ -1951,16 +1951,16 @@ rtshc12.c.o (ansibi.lib):
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xC06C ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC064 ---- SIZE       4 ---
 Filling bytes inserted
  000C1401
-------- ROM-ADDRESS: 0xC070 ---- RAM-ADDRESS: 0x1401 ---- SIZE      11 ---
+------- ROM-ADDRESS: 0xC068 ---- RAM-ADDRESS: 0x1401 ---- SIZE      11 ---
 Name of initialized Object : sci_port:1
  C800C900CA 00CB00CF00 CC
-------- ROM-ADDRESS: 0xC07B ---- RAM-ADDRESS: 0x140C ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xC073 ---- RAM-ADDRESS: 0x140C ---- SIZE       1 ---
 Name of initialized Object : read_end_char
  0D
-------- ROM-ADDRESS: 0xC07C ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC074 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -1973,7 +1973,7 @@ serial_ISR                USES sci_port write_buffer write_end_char
 _vect                     USES UnimplementedISR serial_ISR 
 main                      USES _COPCTL sci_port SerialInitialise 
                                 read_interrupt_init get_new_command split_up_command 
-                                STRING.Fuck.me.dead.1 print_to_serial free 
+                                STRING.Hello.1 print_to_serial free 
 Init                      USES _startupData 
 strtok                    USES next.2 
 malloc                    USES heap_end _heap_ free_ptr _heapcrash_ 
@@ -2041,5 +2041,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 7
-Total size of all blocks to be downloaded: 1222
+Total size of all blocks to be downloaded: 1206
 

@@ -26,11 +26,15 @@ char *test;
 void main(void) {
 
   int func_num = 0;       //function chooser
+  int number_of_funcitons = 3;    //number of command funcitons available to the program
+  
+  
+  
   char *read_string, *write_string;     //char array for reading into and writing from
   
   char **command;       //2d array to spli the parameters up as as strings
   
-  //Making the watchdog timer longer (NOW 2^24):
+ //Making the watchdog timer longer (NOW 2^24):
   COPCTL |= 0b00000111;
       
    
@@ -55,6 +59,10 @@ void main(void) {
     
     command = split_up_command(read_string);
     
+    
+    
+    
+    
     //parse command
     
     
@@ -62,11 +70,11 @@ void main(void) {
     
     
     //REPEAT PRINTS?!?!?
-    print_to_serial(&sci_port, "Fuck me dead\0"); 
+    print_to_serial(&sci_port, "Hello"); 
     
     
     
-    free(command);
+    //if (1 == parsing_command()){
     
     
     //upon successful command, function number will be updated and corresponding function called
@@ -88,6 +96,8 @@ void main(void) {
       default:
         break;
     }
+    
+    free(command);
     continue;
   }
     
