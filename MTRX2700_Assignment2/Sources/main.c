@@ -26,7 +26,12 @@ char *test;
 void main(void) {
 
   int func_num = 0;       //function chooser
-  int number_of_funcitons = 3;    //number of command funcitons available to the program
+  int number_of_functions = 3;    //number of command funcitons available to the program
+  int number_of_parameters;
+  
+  
+  
+  
   
   
   
@@ -57,46 +62,35 @@ void main(void) {
     //wait for the new command:
     read_string = get_new_command();
     
-    command = split_up_command(read_string);
+    command = split_up_command(read_string, &number_of_parameters);
     
     
     
     
-    
-    //parse command
-    
-    
-    //NOW command has been split!
-    
-    
-    //REPEAT PRINTS?!?!?
-    print_to_serial(&sci_port, "Hello"); 
-    
-    
-    
-    //if (1 == parsing_command()){
-    
-    
-    //upon successful command, function number will be updated and corresponding function called
-    //all other times, func_num = 0 (continue infinite loop);
-    switch (func_num){
-      
-      case 1:
-        //flashing_function();
-        break;
+    if (1 == parse_command(&sci_port, command, number_of_functions, number_of_parameters)){
+
+      //upon successful command, function number will be updated and corresponding function called
+      //all other times, func_num = 0 (continue infinite loop);
+      switch (func_num){
         
-      case 2:
-        //music_function();
-        break;
-      
-      case 3:
-        //seven_seg_function();
-        break;
+        case 1:
+          //flashing_function();
+          break;
+          
+        case 2:
+          //music_function();
+          break;
         
-      default:
-        break;
+        case 3:
+          //seven_seg_function();
+          break;
+          
+        default:
+          break;
+      }
+      
     }
-    
+      
     free(command);
     continue;
   }
