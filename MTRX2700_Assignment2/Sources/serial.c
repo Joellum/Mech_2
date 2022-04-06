@@ -189,7 +189,7 @@ void SCI_write_char(SerialPort *serial_port, char buffer[], char end_write_indic
   if (end_write_indicator == buffer[write_index]){
     
     //disabling TIE bit by toggling using XOR
-    *(serial_port->control_register_2) ^= 0b10000000;
+    *(serial_port->control_register_2) ^= 0b1000000;
     //set index to 0 for next string to be written
     write_index = 0;
     return;
