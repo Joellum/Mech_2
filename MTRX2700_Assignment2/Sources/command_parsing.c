@@ -1,4 +1,6 @@
 #include "command_parsing.h"
+#include "serial.h"            //for printing
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -29,7 +31,7 @@ char **split_up_command(char *input_string){
       input_string[i] = ',';
     } 
     //if CR found, change it to NULL terminator then break
-    else if ('\r' == input_string[i]){
+    else if ('read_end_char' == input_string[i]){  //SHOULD BE VARIABLE - read_end_char
       
       input_string[i] = '\0';
       break;
@@ -66,4 +68,27 @@ char **split_up_command(char *input_string){
 
 
 
-//int parse_command(char **command)
+
+int parse_command(char **command, num_funcs){
+  /*
+    This function takes in a split up command (an array of string tokens
+    that have been split up around a ',') and deciphers whether or not
+    the command is valid, returning 1 if so, or 0 if not.
+    
+    The command/input is parsed by checking if it starts with a valid
+    command marker: "`" and has a valid function choice number (within
+    1 - 'num_funcs'), before storing the function choice as a variable.
+    
+    Depending on the funciton choice, the command is further parsed by
+    calling function-specific parsing functions that check the validity
+    of function specific parameters. 
+  */
+  
+  
+  
+  
+  
+  
+  
+  
+}
