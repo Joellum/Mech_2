@@ -9,7 +9,7 @@
 #include "serial.h"
 #include "command_parsing.h"
 
-
+ //DICK
 
 //Creating a GLOBAL SERIAL PORT instance --> needed by ISR
 //var holding serial port struct (known globally)
@@ -26,11 +26,20 @@ char *test;
 void main(void) {
 
   int func_num = 0;       //function chooser
+  int number_of_functions = 3;    //number of command funcitons available to the program
+  int number_of_parameters;
+  
+  
+  
+  
+  
+  
+  
   char *read_string, *write_string;     //char array for reading into and writing from
   
   char **command;       //2d array to spli the parameters up as as strings
   
-  //Making the watchdog timer longer (NOW 2^24):
+ //Making the watchdog timer longer (NOW 2^24):
   COPCTL |= 0b00000111;
       
    
@@ -53,41 +62,36 @@ void main(void) {
     //wait for the new command:
     read_string = get_new_command();
     
-    command = split_up_command(read_string);
-    
-    //parse command
-    
-    
-    //NOW command has been split!
-    
-    
-    //REPEAT PRINTS?!?!?
-    print_to_serial(&sci_port, "Fuck me dead\0"); 
+    command = split_up_command(read_string, &number_of_parameters);
     
     
     
-    free(command);
     
-    
-    //upon successful command, function number will be updated and corresponding function called
-    //all other times, func_num = 0 (continue infinite loop);
-    switch (func_num){
-      
-      case 1:
-        //flashing_function();
-        break;
+    if (1 == parse_command(&sci_port, command, number_of_functions, number_of_parameters)){
+
+      //upon successful command, function number will be updated and corresponding function called
+      //all other times, func_num = 0 (continue infinite loop);
+      switch (func_num){
         
-      case 2:
-        //music_function();
-        break;
-      
-      case 3:
-        //seven_seg_function();
-        break;
+        case 1:
+          //flashing_function();
+          break;
+          
+        case 2:
+          //music_function();
+          break;
         
-      default:
-        break;
+        case 3:
+          //seven_seg_function();
+          break;
+          
+        default:
+          break;
+      }
+      
     }
+      
+    free(command);
     continue;
   }
     

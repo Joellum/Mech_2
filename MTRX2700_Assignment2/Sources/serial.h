@@ -1,6 +1,9 @@
 #ifndef SCI_HEADER
 #define SCI_HEADER
 
+//byte declerations
+#include <mc9s12dg256.h>
+
 
 //Serial Port struct
 typedef struct SerialPort {
@@ -51,4 +54,3 @@ __interrupt void serial_ISR(void);
 
  
 #endif
-//

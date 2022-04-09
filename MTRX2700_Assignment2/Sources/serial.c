@@ -1,4 +1,4 @@
-#include <mc9s12dg256.h>
+
 #include "serial.h"
 #include <hidef.h>
 
@@ -140,7 +140,15 @@ void SCI_read_char(SerialPort *serial_port, char buffer[], char end_read_indicat
   string_ready = 1;       //set the string ready flag so that get_new_command() knows to read
   return;
    
- } 
+ }
+ 
+ 
+ //for BACKSPACES, decrement index to be 'removed' (when next char writes over it):
+ if (read_char == '\b'){
+  index--;
+  return;
+ }
+  
  
  //increment index for next char:
  index++;  
@@ -171,6 +179,11 @@ char *get_new_command(void){
 
 void print_to_serial(SerialPort *serial_port, char *string_to_print){
 
+  //check if TIE is set (waiting for a previous string to be full written before begining new write process'
+  while (128 == (*(serial_port->control_register_2) & 0b10000000)){
+  }
+  
+  
   //copy string literal 'string_to_print' into writebuffer
   strcpy(write_buffer, string_to_print);
   
@@ -189,7 +202,7 @@ void SCI_write_char(SerialPort *serial_port, char buffer[], char end_write_indic
   if (end_write_indicator == buffer[write_index]){
     
     //disabling TIE bit by toggling using XOR
-    *(serial_port->control_register_2) ^= 0b1000000;
+    *(serial_port->control_register_2) ^= 0b10000000;
     //set index to 0 for next string to be written
     write_index = 0;
     return;
